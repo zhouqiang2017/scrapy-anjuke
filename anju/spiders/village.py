@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from anju.items import AnjuItem
+import time
+import random
 
 
 class VillageSpider(scrapy.Spider):
@@ -18,6 +20,9 @@ class VillageSpider(scrapy.Spider):
                 callback=self.parse_detail,
                 meta={'item': item}
             )
+        # 设置休眠时间
+        sleep_time = random.randint(10, 30)
+        time.sleep(sleep_time)
         # 翻页 首先找到下一页的url
         next_url = response.xpath("//a[@class='aNxt']/@href").extract_first()
         if next_url is not None:
